@@ -1,0 +1,63 @@
+$(new Document).ready(function()
+{
+    
+	$('.child').hover(function()
+    {
+		console.log("inside div");
+      $(this).css("border-color","yellow");
+    },
+    function()
+    {
+      $(this).css("border-color","gray");
+    });
+    
+    $("#colordiv input:radio[name=color]").click(function() {
+    color = $(this).val();
+    });
+    
+    $('.child').click(function()
+    {
+        if (($(this).css("background-color")=="rgb(255, 255, 255)"))
+            $(this).css("background-color",color);              
+        else
+            alert("Already Colored!!");
+    });
+    
+      $.fn.randomize = function(childElem) {
+      return this.each(function() {
+      var $this = $(this);
+      var elems = $this.children(childElem);
+      elems.sort(function() { return (Math.round(Math.random())-0.5); });  
+
+      $this.detach(childElem);  
+
+      for(var i=0; i < elems.length; i++)
+        $this.append(elems[i]);      
+
+  		});    
+	}
+    
+    $('#shuffle').click(function()
+    {
+    $("div#parent").randomize("div.child");
+    });
+
+	$('#reset').click(function()                                                       
+    { 
+       $("#red").removeAttr("checked");
+       $("#green").removeAttr("checked");
+       $("#blue").removeAttr("checked");
+       color = undefined;
+       $(".child").css("background-color","white");
+       $(".child").css("color","black");
+       
+       var x=1; 
+       $(".child").each(function() 
+       {
+            if($(this).hasClass("child")) 
+                $(this).text(x++);
+       });
+       
+    });
+    
+});
