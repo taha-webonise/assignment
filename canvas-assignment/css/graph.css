@@ -1,0 +1,25 @@
+div
+{
+	text-align : center;
+}
+#formdiv
+{
+	position : relative;
+	top : 200px;
+	background-color : green;
+	float : left;
+	height : 300px;
+	width : 250px;
+	color : yellow;
+	margin-left : 50px;
+}
+
+#canvas
+{
+	height : 650px;
+	width : 650px;
+	border : 5px solid black;
+	background-color: yellow;
+	position : relative;
+	top : 60px;
+}
