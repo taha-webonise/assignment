@@ -1,0 +1,13 @@
+Documentation: 
+
+Assignment 5 :
+
+NOSQL, MongoDB
+
+BASE Concept
+
+BA stands for Basically Available, which means for every query, data is always available, regardless of consistency or success. This means that even if the data is not consistent, complete or correct MongoDB will give us the data. In condition where no data is present, a failure is shown. Thus, data is available but not correctly.
+
+S stands for Soft Space, means, in the distributed environment where more than one server have a chunk of same database known as Sharding, the data always keeps changing and updating. With more number of database servers around the globe, state of database becomes soft, i.e. not fixed and constantly changing.
+
+E stands for Eventually Consistent, which is related to Soft space concept. Since Sharding is applied and database is divided in small chunks at different geographic locations, all the server might keep updating the database at all time and state will stay inconsistent. Thus Eventually consistent refers to the lesser chance of the database to be in a consistent state.

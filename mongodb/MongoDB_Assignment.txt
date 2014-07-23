@@ -1,0 +1,96 @@
+db.User.insert({_id:"user1", name:"Hugh", assessment:["a1", "a2"]})
+db.User.insert({_id:"user2", name:"Mark", assessment:["a1"]})
+
+db.User.find()
+{ "_id" : "user1", "name" : "Hugh", "assessment" : [ "a1", "a2" ] }
+{ "_id" : "user2", "name" : "Mark", "assessment" : [ "a1" ] }
+
+db.assessment.insert({_id:"a1", name:"Maths", question:["q1","q2"]})
+db.assessment.insert({_id:"a2", name:"Computer", question:["q3","q4","q5"]})
+db.assessment.find()
+{ "_id" : "a1", "name" : "Maths", "question" : [ "q1", "q2" ] }
+{ "_id" : "a2", "name" : "Computer", "question" : [ "q3", "q4", "q5" ] }
+
+db.question.insert({_id:"q1", statement:"2+2?", option:[2,3,4,5]})
+db.question.insert({_id:"q2", statement:"1+2?", option:[3,8,6]})
+db.question.insert({_id:"q3", statement:"LINUX?", option:["OS","KERNEL","FILE"]})
+db.question.insert({_id:"q4", statement:"EXT4?", option:["Win","IOS","Linux"]})
+db.question.insert({_id:"q5", statement:"Loop?", option:["While","Switch","For", "For Each"]})
+db.question.find()
+{ "_id" : "q1", "statement" : "2+2?", "option" : [ 2, 3, 4, 5 ] }
+{ "_id" : "q2", "statement" : "1+2?", "option" : [ 3, 8, 6 ] }
+{ "_id" : "q3", "statement" : "LINUX?", "option" : [ "OS", "KERNEL", "FILE" ] }
+{ "_id" : "q4", "statement" : "EXT4?", "option" : [ "Win", "IOS", "Linux" ] }
+{ "_id" : "q5", "statement" : "Loop?", "option" : [ "While", "Switch", "For", "For Each" ] }
+
+_____________________________________________________________________________________________
+
+Update
+> var res = db.assessment.findOne({_id:"a1"})
+> res1
+{ "_id" : "a1", "name" : "Maths", "question" : [ "q1", "q2" ] }
+> var res2 = db.question.findOne({_id:res1["question"][0]})
+> res2
+{ "_id" : "q1", "statement" : "2+2?", "option" : [ 2, 3, 4, 5 ] }
+> db.question.update({_id:res2["_id"]},{$set:{statement:"2/2?", option:[1,2,3,4]}})
+> db.question.find()
+{ "_id" : "q1", "statement" : "2/2?", "option" : [ 1, 2, 3, 4 ] }
+{ "_id" : "q2", "statement" : "1+2?", "option" : [ 3, 8, 6 ] }
+{ "_id" : "q3", "statement" : "LINUX?", "option" : [ "OS", "KERNEL", "FILE" ] }
+{ "_id" : "q4", "statement" : "EXT4?", "option" : [ "Win", "IOS", "Linux" ] }
+{ "_id" : "q5", "statement" : "Loop?", "option" : [ "While", "Switch", "For", "For Each" ] }
+
+____________________________________________________________________________________________
+
+Delete
+> var res = db.assessment.findOne({_id:"a2"})
+> res
+{
+	"_id" : "a2",
+	"name" : "Computer",
+	"question" : [
+		"q3",
+		"q4",
+		"q5"
+	]
+}
+> var res2 = db.question.findOne({_id:res["question"][1]})
+> res2
+{
+	"_id" : "q4",
+	"statement" : "EXT4?",
+	"option" : [
+		"Win",
+		"IOS",
+		"Linux"
+	]
+}
+> var res2 = db.question.findOne({_id:res["question"][2]})
+> res2
+{
+	"_id" : "q5",
+	"statement" : "Loop?",
+	"option" : [
+		"While",
+		"Switch",
+		"For",
+		"For Each"
+	]
+}
+
+> db.question.update({_id:res2["_id"]},{$unset:{"option.1":1}})
+> db.question.find()
+{ "_id" : "q1", "statement" : "2/2?", "option" : [ 1, 2, 3, 4 ] }
+{ "_id" : "q2", "statement" : "1+2?", "option" : [ 3, 8, 6 ] }
+{ "_id" : "q3", "statement" : "LINUX?", "option" : [ "OS", "KERNEL", "FILE" ] }
+{ "_id" : "q4", "statement" : "EXT4?", "option" : [ "Win", "IOS", "Linux" ] }
+{ "_id" : "q5", "option" : [ "While", null, "For", "For Each" ], "statement" : "Loop?" }
+> db.question.update({_id:res2["_id"]},{$pull:{option:null}})
+
+> db.question.find()
+{ "_id" : "q1", "statement" : "2/2?", "option" : [ 1, 2, 3, 4 ] }
+{ "_id" : "q2", "statement" : "1+2?", "option" : [ 3, 8, 6 ] }
+{ "_id" : "q3", "statement" : "LINUX?", "option" : [ "OS", "KERNEL", "FILE" ] }
+{ "_id" : "q4", "statement" : "EXT4?", "option" : [ "Win", "IOS", "Linux" ] }
+{ "_id" : "q5", "option" : [ "While", "For", "For Each" ], "statement" : "Loop?" }
+
