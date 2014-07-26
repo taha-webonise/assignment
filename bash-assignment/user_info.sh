@@ -19,14 +19,15 @@ echo Home directory of User : $USER $user_dir >> assignment.log
 
 # List of users that are currently logged in
 echo Users that are logged in : >> assignment.log
-echo $(who | cut -d " " -f 1) | tr " " "\n" >> assignment.log
+echo $(who | cut -d " " -f 1 | uniq) | tr " " "\n" >> assignment.log
 
 # List of group that current user belongs
 echo $USER belongs to : >> assignment.log
 echo $(groups) | tr " " "\n" >> assignment.log
 
 # List User's home directory files
-echo Listing Files of $USER: $(ls -R $user_dir) | tr " " "\n" >> assignment.log
+echo Listing Files of $USER: >> assignment.log
+echo $(find $user_dir -type f) | tr " " "\n" >> assignment.log
 
 # Current date and time of machine 
 echo Date and Time is: >> assignment.log
