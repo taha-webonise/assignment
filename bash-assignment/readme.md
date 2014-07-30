@@ -11,7 +11,7 @@ Script user_info.sh accomplishes following tasks
 
 	5. Lists groups using groups command. Alternate could be reading /etc/group file.
 
-	6. Lists all files in home directory excluding directories.
+	6. Lists all files in home directory using tree command. Output is in tree like structure (heirarchical).
 
 Script file_operations.sh accomplishes following tasks
 
