@@ -27,7 +27,7 @@ echo $(groups) | tr " " "\n" >> assignment.log
 
 # List User's home directory files
 echo Listing Files of $USER: >> assignment.log
-echo $(find $user_dir -type f) | tr " " "\n" >> assignment.log
+echo $(tree $user_dir) >> assignment.log
 
 # Current date and time of machine 
 echo Date and Time is: >> assignment.log
